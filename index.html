@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keith Pixel | Graphic Design Portfolio</title>
+    
+    <!-- Load Tailwind CSS and Lucide Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- 1. TAILWIND CONFIGURATION (Processed first for proper styling) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#21c9b6', // The vibrant teal accent color
+                        'secondary': '#1f2937', // Dark gray for card backgrounds
+                        'dark-bg': '#0f172a', // Slightly darker background for contrast
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- 2. CUSTOM CSS STYLES -->
+    <style>
+        /* Set default font to Inter and enable smooth scrolling */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #0d3838; /* Deep teal/blue-green background color */
+        }
+        /* Custom scrollbar styling for a sleeker look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+        /* Ensure portfolio items maintain the grid layout when hidden */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+    </style>
+
+    <!-- 3. MAIN JAVASCRIPT LOGIC -->
+    <script>
+        // ========================================
+        // 📸 PHOTO URLS (Set to local paths, rely on onerror for fallback)
+        // ========================================
+        
+        // --- NOTE: These paths use online placeholders to ensure the site works immediately.
+        // To use your local files, ensure the files exist in your 'img/' folder and change these paths:
+        // const COVER_PHOTO_URL = "img/cover photo.png";
+        // const PROFILE_PHOTO_URL = "img/profile.jpg";
+
+        const COVER_PHOTO_URL = "img/cover photo.png";
+        const PROFILE_PHOTO_URL = "img/earlpff.jpg";
+        
+        
+        // ========================================
+        // 🎨 PORTFOLIO DATA (EASY TO ADD NEW PROJECTS HERE!)
+        // ========================================
+        const portfolioData = [
+            { 
+                category: 'logo', 
+                title: 'Keith Pixel', 
+                subtitle: 'Branding & Identity', 
+                imageUrl: 'img/KP logo.png',
+                description: 'A minimalist monogram logo designed for a high-end fashion startup. The design focuses on sleek lines and negative space to convey elegance and modernity.',
+                tools: ['Adobe Illustrator', 'Adobe Photoshop']
+            },
+            { 
+                category: 'tshirt', 
+                title: 'The Techno-Builders Official Press Shirt', 
+                subtitle: 'Apparel Design', 
+                imageUrl: 'img/ttb shirt.jpg',
+                description: 'A custom, full-sublimation polo shirt design for The Techno-Builders (TTB) Press team. The design features a bold, two-tone color split (burnt orange and white) and integrates a large, stylized fountain pen nib graphic on the front, symbolizing the press/journalism profession. The back is clearly branded with "PRESS" for professional recognition.',
+                tools: ['Adobe Illustrator', 'Adobe Photoshop']
+            },
+            { 
+                category: 'tshirt', 
+                title: 'The Xposure Media Team', 
+                subtitle: 'Apparel Design', 
+                imageUrl: 'img/NVC2.png',
+                description: 'A full-sublimation polo for the Radiologic Technology media team. Features a deep maroon and gold design with a subtle, repeating radiation symbol pattern. Optimized for team identification with clear branding and a designated "POSITION" marker on the back',
+                tools: ['Adobe Illustrator', 'Adobe Photoshop']
+            },
+            { 
+                category: 'largeprint', // New Category
+                title: 'Single-Use Plastic Ban Advocacy Poster (USM-KCC)', 
+                subtitle: 'Large Format Printing/ Campus Policy Communication / Infographic Design', 
+                imageUrl: 'img/noplastic.png',
+                description: 'High-resolution, large-format tarpaulin design for a community event launch. Optimized for visibility from a distance and accurate color reproduction.',
+                tools: ['Adobe Illustrator', 'Adobe Photoshop', 'CorelDRAW']
+            },
+            { 
+                category: 'logo', 
+                title: 'Accountancy, Business, & Management', 
+                subtitle: 'Logo Design', 
+                imageUrl: 'img/abm.png',
+                description: 'A modern and comprehensive logo design for the Accountancy, Business & Management (ABM) Academic Track at Kidapawan City National High School. The design creatively integrates elements representing finance, business, and data analysis to form a cohesive and recognizable emblem.',
+                tools: ['Adobe Illustrator', 'Adobe Photoshop']
+            },
+            { 
+                category: 'tshirt', 
+                title: 'Univeristy of Mindanao CHSE Football Jersey', 
+                subtitle: 'Apparel Design', 
+                imageUrl: 'img/um1.png',
+                description: 'A single-color line art illustration printed on sustainable cotton. The concept was focused on simplicity and nature.',
+                tools: ['Adobe Illustrator', 'Adobe Photoshop']
+            },
+            { 
+                category: 'social', 
+                title: 'The Techno-Bulletin Poster', 
+                subtitle: 'Social Media Ad', 
+                imageUrl: 'img/outnow.png',
+                description: 'A high-energy social media graphic designed to promote the new Techno Bulletin. The composition uses a warm, textured background to create depth, effectively framing the magazine covers as the focal point. Bold, modern typography ("OUT NOW!") ensures instant readability and urgency, making the announcement highly visible in a crowded feed.',
+                tools: ['Adobe Photoshop']
+            },
+            { 
+                category: 'print', 
+                title: 'KCNHS Summer Camp 2025', 
+                subtitle: 'Large-Format Promotional Design', 
+                imageUrl: 'img/smart.png',
+                description: 'A lively promotional poster for the Project S.M.A.R.T. (Strengthening Math and Reading Together) remedial program. The design successfully uses rich textures and a handwritten headline font to create a high-energy, youth-friendly aesthetic. It features collaged student photos to convey community engagement and ensures key details like the camp dates (May 13 to June 6, 2025) are instantly legible.',
+                tools: ['Adobe Photoshop']
+            },
+            // --- Example for Lanyard Design ---
+             { 
+                category: 'largeprint', // New Category
+                title: 'RED CROSS YOUTH KCNHS LANYARD', 
+                subtitle: 'Lanyard & ID Design', 
+                imageUrl: 'img/lanyard.png',
+                description: 'Double-sided, full-color sublimation lanyard design for corporate identification. Focused on clear branding and legibility.',
+                tools: ['Adobe Illustrator']
+            }
+        ];
+
+        
+        // Function to render the portfolio items from the data array
+        function renderPortfolio() {
+            const grid = document.getElementById('portfolio-grid');
+            if (!grid) return;
+
+            grid.innerHTML = ''; // Clear existing content
+
+            portfolioData.forEach((item, index) => { // Added index here
+                const html = `
+                    <div onclick="openModal(${index})" class="portfolio-item group relative block rounded-xl shadow-2xl bg-secondary transform hover:-translate-y-1 transition duration-500 cursor-pointer" data-category="${item.category}">
+                        <img src="${item.imageUrl}" 
+                             onerror="this.onerror=null;this.src='https://online.fliphtml5.com/KeithPixel/bphv/';"
+                             alt="${item.title}" 
+                             class="w-full h-64 object-cover rounded-t-xl transition duration-500 group-hover:scale-[1.03] opacity-90 group-hover:opacity-100">
+                        
+                        <div class="p-4">
+                            <h4 class="text-xl font-bold text-white">${item.title}</h4>
+                            <p class="text-primary mt-1 text-sm">${item.subtitle}</p>
+                        </div>
+                    </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', html);
+            });
+        }
+        
+        // Function to open the detail modal
+        window.openModal = function(index) {
+            const item = portfolioData[index];
+            if (!item) return;
+
+            // Get elements
+            const modal = document.getElementById('project-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalSubtitle = document.getElementById('modal-subtitle');
+            const modalDescription = document.getElementById('modal-description');
+            const modalTools = document.getElementById('modal-tools');
+            const modalImage = document.getElementById('modal-image');
+
+            // Populate content
+            modalTitle.textContent = item.title;
+            modalSubtitle.textContent = item.subtitle;
+            modalDescription.textContent = item.description;
+            modalImage.src = item.imageUrl;
+            
+            // Generate tool badges
+            modalTools.innerHTML = item.tools.map(tool => 
+                `<span class="px-3 py-1 bg-gray-700 text-xs font-medium text-gray-200 rounded-full">${tool}</span>`
+            ).join('');
+
+            // Show modal and prevent body scrolling
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+            
+            // Re-render Lucide icons in the new modal content
+            lucide.createIcons(); 
+        }
+
+        // Function to close the detail modal
+        window.closeModal = function() {
+            const modal = document.getElementById('project-modal');
+            modal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+
+        // Function to initialize Lucide icons after page load
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            // Render the portfolio first
+            renderPortfolio();
+            
+            // Set Cover Photo Source
+            const coverPhoto = document.getElementById('cover-photo');
+            if (coverPhoto) {
+                coverPhoto.src = COVER_PHOTO_URL;
+                // Fallback to a placeholder if the image is not found (no console error logged)
+                coverPhoto.onerror = function() {
+                    this.src = "https://placehold.co/1920x400/800000/ffffff?text=COVER+IMAGE+MISSING"; 
+                };
+            }
+            
+            // Set Profile Photo Source
+            const profilePhoto = document.getElementById('profile-photo');
+            if (profilePhoto) {
+                 profilePhoto.src = PROFILE_PHOTO_URL;
+                 // Fallback to a placeholder if the image is not found (no console error logged)
+                 profilePhoto.onerror = function() {
+                    this.src = "img/earlpff.png";
+                };
+            }
+
+            // Ensure initial filter is set to 'all' on load
+            filterProjects('all');
+        });
+
+        // Function to handle portfolio filtering
+        window.filterProjects = function(category) {
+            const items = document.querySelectorAll('.portfolio-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update button styles: remove active class from all, add to active one
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-dark-bg', 'shadow-md');
+                btn.classList.add('bg-gray-700', 'text-gray-300');
+            });
+            
+            const activeBtn = document.getElementById('filter-' + category);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-primary', 'text-dark-bg', 'shadow-md');
+                activeBtn.classList.remove('bg-gray-700', 'text-gray-300');
+            }
+
+            // Filter logic: hide or show items based on category
+            items.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                
+                if (category === 'all' || itemCategory === category) {
+                    // Show item
+                    item.classList.remove('hidden');
+                    item.classList.add('block');
+                } else {
+                    // Hide item
+                    item.classList.add('hidden');
+                    item.classList.remove('block');
+                }
+            });
+        }
+    </script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+
+    <!-- NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-sm shadow-xl border-b border-gray-800">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- UPDATED: Link now goes to Facebook profile -->
+                <a href="https://www.facebook.com/profile.php?id=61573912803597" target="_blank" rel="noopener noreferrer" class="text-2xl font-extrabold text-primary tracking-wide">
+                    Keith Pixel
+                </a>
+                <div class="flex space-x-6">
+                    <a href="#services" class="text-gray-300 hover:text-primary transition duration-200 text-sm font-medium hidden sm:inline-block">Services</a>
+                    <a href="#portfolio" class="text-gray-300 hover:text-primary transition duration-200 text-sm font-medium hidden sm:inline-block">Portfolio</a>
+                    <a href="#contact" class="text-gray-300 hover:text-primary transition duration-200 text-sm font-medium hidden sm:inline-block">Contact</a>
+                </div>
+                <!-- Mobile Menu Button (Placeholder for JS functionality if needed, keeping it simple for now) -->
+                <button class="sm:hidden text-gray-300 hover:text-primary focus:outline-none">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main>
+        
+        <!-- COVER PHOTO AND HERO WRAPPER -->
+        <div class="relative w-full bg-gray-900">
+            <!-- COVER PHOTO -->
+            <div class="relative w-full h-72 md:h-96 overflow-hidden">
+                <!-- COVER IMAGE: The SRC is set by JavaScript -->
+                <img id="cover-photo" src="" 
+                     alt="Keith Pixel Cover Photo"
+                     class="w-full h-full object-cover opacity-30">
+                <!-- Gradient Overlay for better contrast with the following content -->
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+            </div>
+            
+            <!-- HERO CONTENT (Positioned over the cover/background) -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 md:-mt-40 relative z-10 pb-20 md:pb-32 flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-3/5 text-center md:text-left">
+                    <h1 class="text-5xl md:text-7xl font-extrabold leading-tight tracking-tighter">
+                        Keith Pixel: <span class="text-primary">Bringing Ideas to Life</span>
+                    </h1>
+                    <p class="mt-6 text-xl text-gray-400 max-w-xl mx-auto md:mx-0">
+                        Keith Pixel | Branding, T-Shirt & Logo Design Expert. Transforming ideas into stunning, pixel-perfect visuals. View portfolio and connect on Messenger.
+                    </p>
+                    <div class="mt-10 flex justify-center md:justify-start space-x-4">
+                        <a href="#portfolio" class="px-6 py-3 bg-primary text-dark-bg font-semibold rounded-lg shadow-lg hover:bg-emerald-500 transition duration-300 transform hover:scale-[1.02]">
+                            View Portfolio
+                        </a>
+                        <a href="#contact" class="px-6 py-3 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:bg-gray-800 transition duration-300">
+                            Get In Touch
+                        </a>
+                    </div>
+                </div>
+                <!-- Dynamic Profile Picture -->
+                <div class="md:w-2/5 mt-12 md:mt-0 flex justify-center">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 bg-gray-800 rounded-full flex items-center justify-center shadow-2xl shadow-primary/30 p-2">
+                        <!-- PROFILE PICTURE: The SRC is set by JavaScript -->
+                        <img id="profile-photo" src="" 
+                             alt="Keith Pixel Profile Photo"
+                             class="w-full h-full object-cover rounded-full border-4 border-primary/50">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- SERVICES SECTION -->
+        <section id="services" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white">Creative Services</h2>
+                <p class="mt-4 text-gray-400 text-lg">What I offer to elevate your brand's presence.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Service Card 1 -->
+                <div class="bg-secondary p-8 rounded-xl border border-gray-800 shadow-2xl hover:border-primary transition duration-300">
+                    <i data-lucide="layers" class="w-8 h-8 text-primary mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Branding & Logo Design</h3>
+                    <p class="text-gray-400">Crafting distinctive visual identities that resonate with your target audience and stand the test of time.</p>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="bg-secondary p-8 rounded-xl border border-gray-800 shadow-2xl hover:border-primary transition duration-300">
+                    <i data-lucide="megaphone" class="w-8 h-8 text-primary mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Posters & Flyers</h3>
+                    <p class="text-gray-400">High-impact print and digital collateral designed to capture attention and drive event attendance or sales.</p>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="bg-secondary p-8 rounded-xl border border-gray-800 shadow-2xl hover:border-primary transition duration-300">
+                    <i data-lucide="zap" class="w-8 h-8 text-primary mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Social Media Advertisement Design</h3>
+                    <p class="text-gray-400">Visually optimized graphics for platforms like Instagram, Facebook, and TikTok that convert viewers to customers.</p>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="bg-secondary p-8 rounded-xl border border-gray-800 shadow-2xl hover:border-primary transition duration-300">
+                    <i data-lucide="shirt" class="w-8 h-8 text-primary mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">T-Shirt & Apparel Design</h3>
+                    <p class="text-gray-400">Unique and commercially viable designs for merchandise, ensuring your brand looks good on fabric.</p>
+                </div>
+                
+                <!-- NEW Service Card 5 -->
+                <div class="bg-secondary p-8 rounded-xl border border-gray-800 shadow-2xl hover:border-primary transition duration-300">
+                    <i data-lucide="printer" class="w-8 h-8 text-primary mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Print Collateral (Tarpaulins & Lanyards)</h3>
+                    <p class="text-gray-400">Designing large-format banners, tarpaulins, and branded lanyards that are print-ready and impactful.</p>
+                </div>
+
+                <!-- Service Card 6 (Custom) -->
+                <div class="bg-secondary p-8 rounded-xl border border-gray-800 shadow-2xl hover:border-primary transition duration-300">
+                    <i data-lucide="wand-2" class="w-8 h-8 text-primary mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Custom Creative Projects</h3>
+                    <p class="text-gray-400">Open to unique requests, including illustrations, packaging design, motion graphics, and more.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PORTFOLIO / DESIGN CATALOG SECTION -->
+        <section id="portfolio" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white">Design Catalog</h2>
+                <p class="mt-4 text-gray-400 text-lg">Browse my full collection of featured creative projects.</p>
+            </div>
+
+            <!-- Category Filter Buttons (Behance Style) - UPDATED -->
+            <div class="flex flex-wrap justify-center space-x-3 gap-y-3 mb-12">
+                <button onclick="filterProjects('all')" id="filter-all" class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition duration-200 bg-primary text-dark-bg shadow-md">All Projects</button>
+                <button onclick="filterProjects('logo')" id="filter-logo" class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition duration-200 text-gray-300 bg-gray-700 hover:bg-primary hover:text-dark-bg">Logo Design</button>
+                <button onclick="filterProjects('tshirt')" id="filter-tshirt" class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition duration-200 text-gray-300 bg-gray-700 hover:bg-primary hover:text-dark-bg">T-Shirt Design</button>
+                <button onclick="filterProjects('largeprint')" id="filter-largeprint" class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition duration-200 text-gray-300 bg-gray-700 hover:bg-primary hover:text-dark-bg">Large Format / Print</button>
+                <button onclick="filterProjects('social')" id="filter-social" class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition duration-200 text-gray-300 bg-gray-700 hover:bg-primary hover:text-dark-bg">Social Ads</button>
+                <button onclick="filterProjects('print')" id="filter-print" class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition duration-200 text-gray-300 bg-gray-700 hover:bg-primary hover:text-dark-bg">Print Media</button>
+            </div>
+
+            <!-- Portfolio Grid - Now dynamically populated by JavaScript -->
+            <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project HTML will be inserted here by the renderPortfolio() function -->
+            </div>
+            
+            <div class="text-center mt-12">
+                 <!-- Link updated to external FlipHTML catalog and opens in a new tab -->
+                 <a href="https://online.fliphtml5.com/KeithPixel/bphv/" target="_blank" rel="noopener noreferrer" class="px-8 py-3 bg-gray-700 text-white font-semibold rounded-lg hover:bg-gray-600 transition duration-300" aria-label="View Full FlipHTML Catalog">
+                     View Full FlipHTML Catalog
+                 </a>
+             </div>
+        </section>
+
+        <!-- CONTACT SECTION (UPDATED TO MESSENGER CTA) -->
+        <section id="contact" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+             <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-white">Ready to Start a Project?</h2>
+                <p class="mt-4 text-gray-400 text-lg">The quickest way to reach me is directly through **Facebook Messenger**.</p>
+            </div>
+            
+            <div class="bg-secondary p-8 md:p-12 rounded-xl shadow-2xl border border-gray-800 text-center">
+                <i data-lucide="message-square" class="w-12 h-12 text-primary mx-auto mb-6"></i>
+                <h3 class="text-2xl font-semibold mb-3">Let's Discuss Your Project!</h3>
+                <p class="text-gray-400 mb-8 max-w-lg mx-auto">
+                    Click the button below to open Messenger and send me a note about your branding, apparel, or custom design needs.
+                </p>
+                <!-- Messenger CTA button -->
+                <a href="https://www.facebook.com/messages/t/524868057385455" target="_blank" rel="noopener noreferrer"
+                   class="inline-block w-full md:w-auto px-10 py-4 bg-primary text-dark-bg font-bold rounded-lg shadow-lg shadow-primary/40 hover:bg-emerald-500 transition duration-300 transform hover:scale-[1.01]">
+                    <span class="flex items-center justify-center">
+                        <i data-lucide="facebook" class="w-5 h-5 mr-2"></i> Message Keith Pixel on Messenger
+                    </span>
+                </a>
+                <p class="text-xs text-gray-500 mt-4">
+                    <!-- IMPORTANT: Replace the placeholder link above with your actual Messenger link (e.g., https://m.me/YourPageName or the URL generated by your Facebook page settings). -->
+                    This will open a new window/tab to Facebook Messenger.
+                </p>
+            </div>
+        </section>
+
+        <!-- PROJECT MODAL / DETAIL VIEW -->
+        <div id="project-modal" class="hidden fixed inset-0 z-[100] bg-gray-900/95 backdrop-blur-sm overflow-y-auto" onclick="closeModal()">
+            <div class="flex items-start justify-center min-h-screen pt-12 pb-20" onclick="event.stopPropagation()">
+                <div class="bg-secondary w-full max-w-6xl mx-4 rounded-xl shadow-2xl overflow-hidden transform transition-all border border-primary/20">
+                    
+                    <!-- Close Button -->
+                    <button onclick="closeModal()" class="absolute top-4 right-4 text-white hover:text-primary z-50 p-2 rounded-full bg-gray-800/80 transition duration-200" aria-label="Close project view">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+
+                    <!-- Modal Content Grid -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3">
+                        <!-- Left Side: Image -->
+                        <div class="lg:col-span-2 relative">
+                            <img id="modal-image" src="" alt="Project Image" class="w-full h-full object-contain max-h-[80vh] bg-gray-800">
+                        </div>
+
+                        <!-- Right Side: Details -->
+                        <div class="p-6 md:p-8 space-y-6">
+                            <h2 id="modal-title" class="text-3xl font-bold text-white"></h2>
+                            <p id="modal-subtitle" class="text-primary text-lg font-medium"></p>
+                            
+                            <!-- Description -->
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-300 mb-2 border-b border-gray-700 pb-1">Description</h3>
+                                <p id="modal-description" class="text-gray-400 text-base"></p>
+                            </div>
+
+                            <!-- Tools Used -->
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-300 mb-2 border-b border-gray-700 pb-1">Tools Used</h3>
+                                <div id="modal-tools" class="flex flex-wrap gap-2">
+                                    <!-- Tool badges go here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-800 border-t border-gray-700 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <p class="text-gray-400 text-sm">
+                &copy; 2024 Keith Pixel. All rights reserved.
+            </p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <!-- FACEBOOK ICON (UPDATED LINK TO MESSENGER) -->
+                <a href="https://www.facebook.com/profile.php?id=61573912803597" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition duration-200" aria-label="Facebook Messenger">
+                    <i data-lucide="facebook" class="w-5 h-5"></i>
+                </a>
+                <!-- INSTAGRAM ICON -->
+                <a href="#" class="text-gray-400 hover:text-primary transition duration-200" aria-label="Instagram Profile">
+                    <i data-lucide="instagram" class="w-5 h-5"></i>
+                </a>
+                <!-- TWITTER ICON -->
+                <a href="#" class="text-gray-400 hover:text-primary transition duration-200" aria-label="Twitter Profile">
+                    <i data-lucide="twitter" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
