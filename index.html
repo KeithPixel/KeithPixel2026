@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keith Pixel | Earl Portfolio</title>
     
+    <!-- 📌 NEW: Favicon (Icon in the web tab) -->
+    <link rel="icon" href="img/Icon.svg">
+
     <!-- Load Tailwind CSS and Lucide Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -62,27 +65,24 @@
         // 📸 PHOTO URLS (Set to local paths, rely on onerror for fallback)
         // ========================================
         
-        // --- NOTE: These paths use online placeholders to ensure the site works immediately.
-        // To use your local files, ensure the files exist in your 'img/' folder and change these paths:
-        // const COVER_PHOTO_URL = "img/cover photo.png";
-        // const PROFILE_PHOTO_URL = "img/profile.jpg";
-
-        const COVER_PHOTO_URL = "img/cover photo.png";
-        const PROFILE_PHOTO_URL = "img/earlpff.jpg";
+        const COVER_PHOTO_URL = "img/cover photo.png"; // User's local path
+        const PROFILE_PHOTO_URL = "img/earlpff.jpg"; // User's local path
         
         
         // ========================================
         // 🎨 PORTFOLIO DATA (EASY TO ADD NEW PROJECTS HERE!)
         // ========================================
         const portfolioData = [
+            // 1. KEITH PIXEL LOGO
             { 
                 category: 'logo', 
-                title: 'Keith Pixel', 
+                title: 'Keith Pixel Logo', // Renamed title slightly
                 subtitle: 'Branding & Identity', 
                 imageUrl: 'img/KP logo.png',
                 description: 'A minimalist monogram logo designed for a high-end fashion startup. The design focuses on sleek lines and negative space to convey elegance and modernity.',
                 tools: ['Adobe Illustrator', 'Adobe Photoshop']
             },
+            // 2. TTB PRESS POLO SHIRT
             { 
                 category: 'tshirt', 
                 title: 'The Techno-Builders Official Press Shirt', 
@@ -91,30 +91,34 @@
                 description: 'A custom, full-sublimation polo shirt design for The Techno-Builders (TTB) Press team. The design features a bold, two-tone color split (burnt orange and white) and integrates a large, stylized fountain pen nib graphic on the front, symbolizing the press/journalism profession. The back is clearly branded with "PRESS" for professional recognition.',
                 tools: ['Adobe Illustrator', 'Adobe Photoshop']
             },
+            // 3. XPOSURE MEDIA TEAM POLO SHIRT
             { 
                 category: 'tshirt', 
-                title: 'The Xposure Media Team', 
+                title: 'The Xposure Media Team Polo', 
                 subtitle: 'Apparel Design', 
                 imageUrl: 'img/NVC2.png',
-                description: 'A full-sublimation polo for the Radiologic Technology media team. Features a deep maroon and gold design with a subtle, repeating radiation symbol pattern. Optimized for team identification with clear branding and a designated "POSITION" marker on the back',
+                description: 'A full-sublimation polo for the Radiologic Technology media team. Features a deep maroon and gold design with a subtle, repeating radiation symbol pattern. Optimized for team identification with clear branding and a designated "POSITION" marker on the back.',
                 tools: ['Adobe Illustrator', 'Adobe Photoshop']
             },
+            // 4. SINGLE-USE PLASTIC BAN POSTER (LARGEPRINT)
             { 
-                category: 'largeprint', // New Category
+                category: 'largeprint', 
                 title: 'Single-Use Plastic Ban Advocacy Poster (USM-KCC)', 
-                subtitle: 'Large Format Printing/ Campus Policy Communication / Infographic Design', 
+                subtitle: 'Campus Policy Communication / Infographic Design', 
                 imageUrl: 'img/noplastic.png',
                 description: 'A clear policy advocacy poster promoting the ban on single-use plastics on campus. The design uses an emotional central illustration of the Earth in a plastic bag to drive compliance, while utilizing structured sections to clearly detail the specific policy rules and disciplinary sanctions for the entire university community.',
                 tools: ['Adobe Illustrator', 'Adobe Photoshop', 'CorelDRAW']
             },
+            // 5. ABM LOGO
             { 
                 category: 'logo', 
-                title: 'Accountancy, Business, & Management', 
+                title: 'Accountancy, Business, & Management Logo', 
                 subtitle: 'Logo Design', 
                 imageUrl: 'img/abm.png',
                 description: 'A modern and comprehensive logo design for the Accountancy, Business & Management (ABM) Academic Track at Kidapawan City National High School. The design creatively integrates elements representing finance, business, and data analysis to form a cohesive and recognizable emblem.',
                 tools: ['Adobe Illustrator', 'Adobe Photoshop']
             },
+            // 6. CHSE FOOTBALL JERSEY
             { 
                 category: 'tshirt', 
                 title: 'Univeristy of Mindanao CHSE Football Jersey', 
@@ -123,6 +127,7 @@
                 description: 'A custom, full-sublimation football jersey designed for the CHSE Football Team. The jersey uses vibrant shades of blue and white, featuring a prominent stylized eagle wing pattern across the chest and back. The pattern is seamlessly integrated into the fabric, highlighting performance and team identity, with gold trim details adding a premium finish.',
                 tools: ['Adobe Illustrator', 'Adobe Photoshop']
             },
+            // 7. TECHNO-BULLETIN POSTER
             { 
                 category: 'social', 
                 title: 'The Techno-Bulletin Poster', 
@@ -131,21 +136,23 @@
                 description: 'A high-energy social media graphic designed to promote the new Techno Bulletin. The composition uses a warm, textured background to create depth, effectively framing the magazine covers as the focal point. Bold, modern typography ("OUT NOW!") ensures instant readability and urgency, making the announcement highly visible in a crowded feed.',
                 tools: ['Adobe Photoshop']
             },
+            // 8. SUMMER CAMP POSTER
             { 
                 category: 'print', 
-                title: 'KCNHS Summer Camp 2025', 
+                title: 'KCNHS Summer Camp 2025 Poster', 
                 subtitle: 'Large-Format Promotional Design', 
                 imageUrl: 'img/Smart.png',
                 description: 'A lively promotional poster for the Project S.M.A.R.T. (Strengthening Math and Reading Together) remedial program. The design successfully uses rich textures and a handwritten headline font to create a high-energy, youth-friendly aesthetic. It features collaged student photos to convey community engagement and ensures key details like the camp dates (May 13 to June 6, 2025) are instantly legible.',
                 tools: ['Adobe Photoshop']
             },
-            // --- Example for Lanyard Design ---
-             { 
+            // 9. RED CROSS YOUTH LANYARD (FIXED SYNTAX)
+            { 
                 category: 'largeprint', // New Category
                 title: 'RED CROSS YOUTH KCNHS LANYARD', 
                 subtitle: 'Lanyard & ID Design', 
                 imageUrl: 'img/lanyard.png',
-                description: 'Full-sublimation lanyard for the Red Cross Youth. Features the organizations red and white colors, a dynamic pattern, and clear branding for high visibility.',
+                // FIX: Used &#39; to safely render the apostrophe without breaking the JavaScript string.
+                description: 'Full-sublimation lanyard for the Red Cross Youth. Features the organization&#39;s red and white colors, a dynamic pattern, and clear branding for high visibility.',
                 tools: ['Adobe Photoshop']
             }
         ];
@@ -192,7 +199,8 @@
             // Populate content
             modalTitle.textContent = item.title;
             modalSubtitle.textContent = item.subtitle;
-            modalDescription.textContent = item.description;
+            // Decode the HTML entity before setting text content
+            modalDescription.textContent = item.description.replace(/&#39;/g, "'"); 
             modalImage.src = item.imageUrl;
             
             // Generate tool badges
@@ -237,9 +245,10 @@
             const profilePhoto = document.getElementById('profile-photo');
             if (profilePhoto) {
                  profilePhoto.src = PROFILE_PHOTO_URL;
-                 // Fallback to a placeholder if the image is not found (no console error logged)
+                 // Fallback to a placeholder if the image is not found 
                  profilePhoto.onerror = function() {
-                    this.src = "img/earlpff.png";
+                     // Using a generic online placeholder if the local file fails
+                    this.src = "https://placehold.co/300x300/800000/ffffff?text=PROFILE+MISSING";
                 };
             }
 
